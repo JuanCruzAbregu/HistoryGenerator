@@ -3,11 +3,13 @@ package com.n3twork.historygenerator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
-    private Button botonGenerar;
 
     private String[] leyenda = new String[]{
             "Quién rompa la antigua maldición adquirirá su poder",
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
             "Marcará el inicio de una nueva era",
             "Cuando se resuelva se econtrará el lugar exacto",
             "Según los rumores, en realidad no existe",
+            "Si se le quita, morirá",
             "Si no se logra, una plaga azotará la región"
     };
 
@@ -373,6 +376,10 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private int numAleatorio;
+    private ListView listViewHistoria;
+    private Button botonGenerar;
+    private int[] arrayControl = new int[28];
+    private String[] frases = new String[28];
 
     //numero = (int) (Math.random() * n) + 1;
     //Donde n es hasta el número que quieres que llegue, + 1 para que nunca tengas un 0
@@ -383,16 +390,158 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        botonGenerar = findViewById(R.id.botonGenerar);
+        botonGenerar     = findViewById(R.id.botonGenerar);
+        listViewHistoria = findViewById(R.id.listViewHistoria);
 
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    /**
+     *
+     * Método que obtiene los valores aleatorios de los arrays y las frases correspondientes
+     *
+     * @param v
+     */
 
     public void Generar(View v){
 
-        numAleatorio = (int) (Math.random() * 10) + 1;
+        for(int i=0; i<28; i++){
+            arrayControl[i] = (int) (Math.random() * 9) + 1;
+        }
 
+        frases[0] = leyenda[arrayControl[0]];
+        frases[1] = zonaInicio[arrayControl[1]];
+        frases[2] = motivosEncuentro[arrayControl[2]];
+        frases[3] = patron[arrayControl[3]];
+        frases[4] = reunion[arrayControl[4]];
+        frases[5] = misterioInic[arrayControl[5]];
+        frases[6] = motivacion[arrayControl[6]];
+        frases[7] = contactos[arrayControl[7]];
+        frases[8] = equipoApoyo[arrayControl[8]];
+        frases[9] = pistas1[arrayControl[9]];
+        frases[10] = pistas2[arrayControl[10]];
+        frases[11] = acceso[arrayControl[11]];
+        frases[12] = puestoAvanzado[arrayControl[12]];
+        frases[13] = dungeon[arrayControl[13]];
+        frases[14] = peligrosLugar[arrayControl[14]];
+        frases[15] = decoracion[arrayControl[15]];
+        frases[16] = enemigosSecundarios[arrayControl[16]];
+        frases[17] = momentoPjGracioso[arrayControl[17]];
+        frases[18] = momentoPjDrama[arrayControl[18]];
+        frases[19] = zonaEspecial[arrayControl[19]];
+        frases[20] = desafioEspecial[arrayControl[20]];
+        frases[21] = ayudaInesperada[arrayControl[21]];
+        frases[22] = decisionesImportantes[arrayControl[22]];
+        frases[23] = traiciones[arrayControl[23]];
+        frases[24] = jefe[arrayControl[24]];
+        frases[25] = tesoro[arrayControl[25]];
+        frases[26] = recompensa[arrayControl[26]];
+        frases[27] = repercusiones[arrayControl[27]];
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, frases);
+        listViewHistoria.setAdapter(adapter);
+
+        Toast.makeText(getApplicationContext(), "Presiona cada item para más información", Toast.LENGTH_LONG).show();
+
+        listViewHistoria.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (position){
+                    case 0:
+                        Toast.makeText(getApplicationContext(),"Leyenda", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        Toast.makeText(getApplicationContext(),"Zona de inicio", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(getApplicationContext(),"Motivos para encontrarse", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(getApplicationContext(),"Patrón", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        Toast.makeText(getApplicationContext(),"Lugar de reunión", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 5:
+                        Toast.makeText(getApplicationContext(),"Misterio inicial", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 6:
+                        Toast.makeText(getApplicationContext(),"Motivación", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 7:
+                        Toast.makeText(getApplicationContext(),"Contactos", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 8:
+                        Toast.makeText(getApplicationContext(),"Equipo de apoyo", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 9:
+                        Toast.makeText(getApplicationContext(),"Pistas 1", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 10:
+                        Toast.makeText(getApplicationContext(),"Pistas 2", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 11:
+                        Toast.makeText(getApplicationContext(),"Acceso/Viaje/Transporte", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 12:
+                        Toast.makeText(getApplicationContext(),"Puesto avanzado", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 13:
+                        Toast.makeText(getApplicationContext(),"Dungeon/Lugar de exploración", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 14:
+                        Toast.makeText(getApplicationContext(),"Peligros innatos/Leyenda del lugar", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 15:
+                        Toast.makeText(getApplicationContext(),"Decoración", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 16:
+                        Toast.makeText(getApplicationContext(),"Enemigos secundarios", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 17:
+                        Toast.makeText(getApplicationContext(),"Momento: personaje gracioso", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 18:
+                        Toast.makeText(getApplicationContext(),"Momento: personaje dramático", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 19:
+                        Toast.makeText(getApplicationContext(),"Zona especial/Habitación especial", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 20:
+                        Toast.makeText(getApplicationContext(),"Desafío especial", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 21:
+                        Toast.makeText(getApplicationContext(),"Apoyo inesperado", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 22:
+                        Toast.makeText(getApplicationContext(),"Decisiones importantes", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 23:
+                        Toast.makeText(getApplicationContext(),"Traiciones", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 24:
+                        Toast.makeText(getApplicationContext(),"Jefe", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 25:
+                        Toast.makeText(getApplicationContext(),"Tesoro", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 26:
+                        Toast.makeText(getApplicationContext(),"Recompensa", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 27:
+                        Toast.makeText(getApplicationContext(),"Repercusiones", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+
+            }
+        });
 
     }
+
 
 }
